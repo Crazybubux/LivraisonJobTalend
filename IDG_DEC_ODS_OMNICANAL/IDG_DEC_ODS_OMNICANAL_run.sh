@@ -1,0 +1,4 @@
+#!/bin/sh
+cd `dirname $0`
+ROOT_PATH=`pwd`
+java -Xms256M -Xmx1024M -cp .:$ROOT_PATH:$ROOT_PATH/../lib/routines.jar:$ROOT_PATH/../lib/log4j-1.2.16.jar:$ROOT_PATH/../lib/ojdbc7.jar:$ROOT_PATH/../lib/dom4j-1.6.1.jar:$ROOT_PATH/../lib/jaxrpc.jar:$ROOT_PATH/../lib/talendcsv.jar:$ROOT_PATH/../lib/jconn3.jar:$ROOT_PATH/../lib/axis.jar:$ROOT_PATH/../lib/saxon9he.jar:$ROOT_PATH/../lib/tns.jar:$ROOT_PATH/../lib/talend_file_enhanced_20070724.jar:$ROOT_PATH/../lib/talend-oracle-timestamptz.jar:$ROOT_PATH/idg_dec_ods_omnicanal_0_2.jar:$ROOT_PATH/contextload_balises_0_1.jar:$ROOT_PATH/contextload_0_1.jar: idg_dec.idg_dec_ods_omnicanal_0_2.IDG_DEC_ODS_OMNICANAL --context=Linux "$@" 

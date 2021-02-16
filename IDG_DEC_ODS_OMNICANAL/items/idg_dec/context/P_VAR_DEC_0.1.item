@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" confirmationNeeded="false" name="Default">
+  <contextParameter comment="" name="P_VAR_DEC_DIR" prompt="P_VAR_DEC_DIR?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter comment="" name="P_VAR_DEC_NB_JOURS" prompt="P_VAR_DEC_NB_JOURS?" promptNeeded="false" type="id_Integer" value=""/>
+  <contextParameter comment="" name="P_VAR_DEC_DIR_BULK_IN" prompt="P_VAR_DEC_DIR_BULK_IN?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter comment="" name="P_VAR_DEC_DIR_BULK_OUT" prompt="P_VAR_DEC_DIR_BULK_OUT?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter comment="" name="P_VAR_DEC_NB_JOUR_ARCHIVE" prompt="P_VAR_DEC_NB_JOUR_ARCHIVE?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter comment="" name="P_VAR_DEC_XSD" prompt="P_VAR_DEC_XSD?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter comment="" name="P_VAR_DEC_XSD_RETOURS" prompt="P_VAR_DEC_XSD_RETOURS?" promptNeeded="false" type="id_String" value=""/>
+  <contextParameter comment="" name="P_VAR_DEC_XSD_MOTIFS" prompt="P_VAR_DEC_XSD_MOTIFS?" promptNeeded="false" type="id_String" value=""/>
+</talendfile:ContextType>

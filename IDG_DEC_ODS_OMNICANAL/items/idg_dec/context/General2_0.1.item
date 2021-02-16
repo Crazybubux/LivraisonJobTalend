@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd">
+  <talendfile:ContextType confirmationNeeded="false" name="Default">
+    <contextParameter comment="" name="contextDir" prompt="contextDir?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="tmpDir" prompt="tmpDir?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="contextEnv" prompt="contextEnv?" promptNeeded="false" type="id_String" value=""/>
+  </talendfile:ContextType>
+  <talendfile:ContextType confirmationNeeded="false" name="Developpement">
+    <contextParameter comment="" name="contextDir" prompt="contextDir?" promptNeeded="false" type="id_String" value="D:\opt\app\ctx"/>
+    <contextParameter comment="" name="tmpDir" prompt="tmpDir?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="contextEnv" prompt="contextEnv?" promptNeeded="false" type="id_String" value="Developpement"/>
+  </talendfile:ContextType>
+  <talendfile:ContextType confirmationNeeded="false" name="JAC_RE7">
+    <contextParameter comment="" name="contextDir" prompt="contextDir?" promptNeeded="false" type="id_String" value="D:\opt\app\ctx"/>
+    <contextParameter comment="" name="tmpDir" prompt="tmpDir?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="contextEnv" prompt="contextEnv?" promptNeeded="false" type="id_String" value="Linux"/>
+  </talendfile:ContextType>
+  <talendfile:ContextType confirmationNeeded="false" name="Linux">
+    <contextParameter comment="" name="contextDir" prompt="contextDir?" promptNeeded="false" type="id_String" value="/opt/app/ctx/"/>
+    <contextParameter comment="" name="tmpDir" prompt="tmpDir?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="contextEnv" prompt="contextEnv?" promptNeeded="false" type="id_String" value="Linux"/>
+  </talendfile:ContextType>
+  <talendfile:ContextType confirmationNeeded="false" name="OEJ_RE7">
+    <contextParameter comment="" name="contextDir" prompt="contextDir?" promptNeeded="false" type="id_String" value="D:\opt\app\ctx"/>
+    <contextParameter comment="" name="tmpDir" prompt="tmpDir?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="contextEnv" prompt="contextEnv?" promptNeeded="false" type="id_String" value="Linux"/>
+  </talendfile:ContextType>
+  <talendfile:ContextType confirmationNeeded="false" name="OKA_RE7">
+    <contextParameter comment="" name="contextDir" prompt="contextDir?" promptNeeded="false" type="id_String" value="D:\opt\app\ctx"/>
+    <contextParameter comment="" name="tmpDir" prompt="tmpDir?" promptNeeded="false" type="id_String" value=""/>
+    <contextParameter comment="" name="contextEnv" prompt="contextEnv?" promptNeeded="false" type="id_String" value="Linux"/>
+  </talendfile:ContextType>
+  <talendfile:ContextType confirmationNeeded="false" name="Recette">
+    <contextParameter comment="" name="contextDir" prompt="contextDir?" promptNeeded="false" type="id_String" value="C:\opt\app\ctx"/>
+    <contextParameter comment="" name="tmpDir" prompt="tmpDir?" promptNeeded="false" type="id_String" value="null"/>
+    <contextParameter comment="" name="contextEnv" prompt="contextEnv?" promptNeeded="false" type="id_String" value="Recette"/>
+  </talendfile:ContextType>
+</xmi:XMI>

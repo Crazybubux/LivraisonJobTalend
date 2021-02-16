@@ -1,0 +1,3 @@
+%~d0
+cd %~dp0
+java -Xms256M -Xmx1024M -cp .;../lib/routines.jar;../lib/log4j-1.2.16.jar;../lib/ojdbc7.jar;../lib/dom4j-1.6.1.jar;../lib/jaxrpc.jar;../lib/talendcsv.jar;../lib/jconn3.jar;../lib/axis.jar;../lib/saxon9he.jar;../lib/tns.jar;../lib/talend_file_enhanced_20070724.jar;../lib/talend-oracle-timestamptz.jar;idg_dec_ods_omnicanal_0_2.jar;contextload_balises_0_1.jar;contextload_0_1.jar; idg_dec.idg_dec_ods_omnicanal_0_2.IDG_DEC_ODS_OMNICANAL --context=Linux %* 

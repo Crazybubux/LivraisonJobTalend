@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd">
+  <talendfile:ContextType confirmationNeeded="false" name="Default">
+    <contextParameter comment="" name="P_VAR_CODE_MARQUE" prompt="P_VAR_CODE_MARQUE?" promptNeeded="false" type="id_String" value=""/>
+  </talendfile:ContextType>
+  <talendfile:ContextType confirmationNeeded="false" name="JAC_RE7">
+    <contextParameter comment="" name="P_VAR_CODE_MARQUE" prompt="P_VAR_CODE_MARQUE?" promptNeeded="false" type="id_String" value="J"/>
+  </talendfile:ContextType>
+  <talendfile:ContextType confirmationNeeded="false" name="OEJ_RE7">
+    <contextParameter comment="" name="P_VAR_CODE_MARQUE" prompt="P_VAR_CODE_MARQUE?" promptNeeded="false" type="id_String" value="X"/>
+  </talendfile:ContextType>
+  <talendfile:ContextType confirmationNeeded="false" name="OKA_RE7">
+    <contextParameter comment="" name="P_VAR_CODE_MARQUE" prompt="P_VAR_CODE_MARQUE?" promptNeeded="false" type="id_String" value="K"/>
+  </talendfile:ContextType>
+</xmi:XMI>
