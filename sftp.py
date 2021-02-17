@@ -18,13 +18,17 @@ class sftp():
                 print('Connection to %s successfull.' % ftp_address)
             sftp.chdir(ftp_folder)
         except Exception as e:
+            sftp = None
             print('Connection to %s failed.' % ftp_address)
         return sftp
 
     def put(self, sftp_connection, local_file_path):
         # Envoi du fichier "localFilePath" vers le serveur SFTP "sftp"
-        sftp_connection.put(local_file_path)
-        print('File "%s" sent.' % local_file_path)
+        try:
+            sftp_connection.put(local_file_path)
+            print('File "%s" sent.' % local_file_path)
+        except TypeError as te:
+            print('Erreur : %s ' % te)
 
 if __name__ == "__main__":
     filename = 'config.ini'

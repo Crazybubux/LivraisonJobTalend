@@ -12,8 +12,6 @@ import os
 class file_ini():
     def __init__(self, filename):
         self.filename = filename
-    # def __init__(self):
-    #     pass
 
     def exists(self):
         if os.path.exists(self.filename):

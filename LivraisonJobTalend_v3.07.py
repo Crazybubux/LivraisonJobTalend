@@ -219,6 +219,16 @@ class Ui_Dialog(object):
             self.EmplacementDocumentationDisplay.setText(control.get_display_string('DOC_DESTINATION')[0][1])
             self.LienMantisDisplay.setText(control.get_display_string('LIEN_DU_MANTIS')[0][1])
 
+        if control.get_display_string('CONNEXION_SFTP_KO'):
+            self.EmplacementLivraisonDisplay.setText('')
+            self.EmplacementDocumentationDisplay.setText('')
+            self.LienMantisDisplay.setText('')
+            self.mantisMessageDisplay.append(control.get_display_string('CONNEXION_SFTP_KO'))
+        elif control.get_display_string('CONNEXION_SSH_KO'):
+            self.EmplacementLivraisonDisplay.setText('')
+            self.EmplacementDocumentationDisplay.setText('')
+            self.LienMantisDisplay.setText('')
+            self.mantisMessageDisplay.append(control.get_display_string('CONNEXION_SSH_KO'))
 
         for line in control.get_display_string('MESSAGE_MANTIS'):
             self.mantisMessageDisplay.append(line[1])

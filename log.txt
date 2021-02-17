@@ -1,2 +1,6 @@
 0. Début de la livraison.
+1. OK Contrôles OK
+2. OK Dossier \\pw1920inf024\Livrable_Talend\FLUX\LIV\TES\IDG_TES_DEC_ODS_OMNICANAL déjà existant.
+3. OK Dossier \\pw1920inf024\Livrable_Talend\FLUX\LIV\TES\IDG_TES_DEC_ODS_OMNICANAL\Mantis_0020000 déjà existant.
+4. OK Dossier \\pw1920inf024\Livrable_Talend\FLUX\LIV\TES\IDG_TES_DEC_ODS_OMNICANAL\Mantis_0020000\Build_du_job déjà existant.
 99. Fin de la livraison.

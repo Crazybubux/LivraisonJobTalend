@@ -3,12 +3,13 @@ from shutil import copyfile
 from PyQt5.QtCore import QUrl
 
 from file_ini import file_ini
+import pyperclip
 import glob
 import operator
 import os
 import shutil
-from ssh import ssh
 from sftp import sftp
+from ssh import ssh
 import ntpath
 import zipfile
 from ThreadWithReturnValue import ThreadWithReturnValue
@@ -140,7 +141,7 @@ class controller():
         self.display_strings.append(['MESSAGE_MANTIS', 'Cordialement,'])
         self.display_strings.append(['MESSAGE_MANTIS', user])
 
-    def controls_before_execution(self, jobname, mantis_number, build_folder_path, doc_folder_path, build_destination, doc_destination, pattern):
+    def controls_before_execution(self, jobname, mantis_number, build_folder_path, doc_folder_path, build_destination, doc_destination, pattern, ftp_address, ftp_username, ftp_password, target_file_path):
         error_list = []
         flag=True
         if jobname == "":
@@ -157,15 +158,22 @@ class controller():
             self.append_logs('%s KO Le zip de la documentation est absent du dossier %s.' % (self.log_line_id, doc_folder_path))
             flag=False
         if self.file_or_folder_exists(build_destination, pattern):
-            self.display_strings.append(['BUILD_EXISTE', 'Le build existe déjà.'])
+            self.display_strings.append(['BUILD_EXISTE', 'Le build existe déjà. <a href=\"file:'+build_destination+'\">Ouvrir le dossier</a>'])
             self.append_logs('%s KO Le build est absent du dossier %s.' % (self.log_line_id, doc_folder_path))
             flag=False
         if self.file_or_folder_exists(doc_destination, jobname+'*'):
-            self.display_strings.append(['DOC_EXISTE', 'La documentation existe déjà.'])
+            print('doc_destination : %s' % doc_destination)
+            self.display_strings.append(['DOC_EXISTE', 'La documentation existe déjà. <a href=\"file:'+doc_destination+'\">Ouvrir le dossier</a>'])
             flag=False
-        ini_file = file_ini('config.ini')
-        if not file_ini.exists(ini_file):
-            error_list.append("Le fichier config.ini est introuvable.")
+        if not file_ini('config.ini').exists():
+            error_list.append()
+            self.display_strings.append(['CONFIG_EXISTE', 'Le fichier config.ini est introuvable.'])
+            flag=False
+        if not sftp().connection(ftp_address, ftp_username, ftp_password, target_file_path):
+            self.display_strings.append(['CONNEXION_SFTP_KO', 'La connexion SFTP à %s à échoué.' % ftp_address])
+            flag=False
+        if not ssh().connection(ftp_address, ftp_username, ftp_password):
+            self.display_strings.append(['CONNEXION_SSH_KO', 'La connexion SSH à %s à échoué.' % ftp_address])
             flag=False
         return flag, error_list
 
@@ -198,7 +206,21 @@ class controller():
         self.display_strings.append(['LIEN_DU_MANTIS', '<a href=\"http://mantis/mantis_prd/view.php?id='+mantis_number+'\">'+'http://mantis/mantis_prd/view.php?id='+mantis_number+'</a>'])
         # Ajout des chaînes de caractères déstinées à l'affichage
 
-        flag_controls, error_list = self.controls_before_execution(jobname, mantis_number, current_directory, source_doc_folder_path, target_build_filename, target_doc_jobname_folder_path, pattern)
+        # Lecture de la section SFTP du fichier config.ini
+        sftp_params = self.load_ini_file_section('config.ini', 'sftp')
+
+        file_mask = sftp_params[0][2]
+        target_file_path = sftp_params[1][2]
+        print('target_file_path : %s '% target_file_path)
+        ftp_address = sftp_params[2][2]
+        ftp_username = sftp_params[3][2]
+        ftp_password = sftp_params[4][2]
+        list_strings = sftp_params[5][2]
+        search = sftp_params[6][2]
+        wait_in_seconds = sftp_params[7][2]
+        # Lecture de la section SFTP du fichier config.ini
+
+        flag_controls, error_list = self.controls_before_execution(jobname, mantis_number, current_directory, source_doc_folder_path, target_build_filename, target_doc_jobname_folder_path, pattern, ftp_address, ftp_username, ftp_password, target_file_path)
         print('flag_controls : %s' % flag_controls)
         if flag_controls:
 
@@ -232,24 +254,17 @@ class controller():
                 self.create_directory(target_doc_jobname_folder_path)
                 self.append_logs('%s OK Dossier %s créé.' % (self.log_line_id, target_doc_jobname_folder_path))
 
-            # Lecture du fichier config.ini
-            sftp_params = self.load_ini_file_section('config.ini', 'sftp')
             # Extraction du zip dans le dossier cible
-            self.extract_zip_file(source_doc_file, target_doc_buildname_folder_path)
-            self.append_logs('%s OK Contenu de l\'archive %s déplacé dans %s.' % (self.log_line_id, source_doc_file, target_doc_buildname_folder_path))
+            # TODO DOC
+            # self.extract_zip_file(source_doc_file, target_doc_buildname_folder_path)
+            # self.append_logs('%s OK Contenu de l\'archive %s déplacé dans %s.' % (self.log_line_id, source_doc_file, target_doc_buildname_folder_path))
             # TODO SFTP
-            sftp_params = self.load_ini_file_section('config.ini', 'sftp')
 
-            file_mask = sftp_params[1]
-            target_file_path = sftp_params[2]
-            ftp_address = sftp_params[3]
-            ftp_username = sftp_params[4]
-            ftp_password = sftp_params[5]
-            list_strings = sftp_params[6]
-            search = sftp_params[7]
-            wait_in_seconds = sftp_params[8]
-            connexion_sftp_talend_rec = self.sftp_connection(ftp_address, ftp_username, ftp_password, target_file_path)
-            self.sftp_put(connexion_sftp_talend_rec, source_build_file)
+            connexion_sftp_talend_rec = sftp().connection(ftp_address, ftp_username, ftp_password, target_file_path)
+            try:
+                sftp().put(connexion_sftp_talend_rec, source_build_file)
+            except AttributeError as ae:
+                print('La connexion au serveur %s a échouée, impossible de déposer le livrable.' % ftp_address)
             # TODO SFTP
             # On génère le message à destination de mantis.
             self.generate_mantis_message(target_build_build_folder_path, version, user)
@@ -257,20 +272,29 @@ class controller():
             # sftp_connection = sftp.connection(ftp_address, ftp_username, ftp_password, target_file_path)
                 # control.delete_file(source_build_folder_path, pattern)
             # TODO SSH
-            #
-            connexion_ssh_talend_rec = self.ssh_connection(ftp_address, ftp_username, ftp_password)
-            shell_cmd_installation = 'livraison_talend.sh /tmp/%s OF' % source_build_file
-            self.ssh_run_shell_command(connexion_ssh_talend_rec, "cd /tmp")
-            self.ssh_run_shell_command(connexion_ssh_talend_rec, shell_cmd_installation)
-            # TODO
+            connexion_ssh_talend_rec = ssh().connection(ftp_address, ftp_username, ftp_password)
+            shell_cmd_installation = 'livraison_talend.sh /tmp/%s OF' % build_filename
+            ssh().run_shell_command(connexion_ssh_talend_rec, "cd /tmp")
+            ssh().run_shell_command(connexion_ssh_talend_rec, shell_cmd_installation)
+            # TODO MoveBuild
             # Déplacement du build dans le dossier cible
             print('Déplacement du fichier %s : \n vers : %s' % (source_build_file, target_build_build_folder_path))
             # shutil.move(source_build_file, target_build_build_folder_path)
+            # TODO MoveBuild
+
             # TODO CopyToClipboard
-            #
+            message_mantis = ''
+            for line in self.get_display_string('MESSAGE_MANTIS'):
+                message_mantis = message_mantis + line[1] + '\n'
+            print('message_mantis : %s' % message_mantis)
+            pyperclip.copy(message_mantis)
+            # TODO CopyToClipboard
+
             # TODO OpenURL
             # os.startfile("http://mantis/mantis_prd/view.php?id="+self.getMantisNumber())
-            #
+            # TODO OpenURL
+            # TODO Create "Application" ServiceNow
+
             # TODO Create "Application" ServiceNow
         else:
             # error_list.append('%s KO Le livrable %s existe déjà.' % (self.log_line_id, source_build_file))
